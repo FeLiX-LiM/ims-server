@@ -1,0 +1,18 @@
+{
+    "apps": [
+        {
+            "name": "ims-server",
+            "script": "./bin/www",
+            "instance_var": "INSTANCE_ID",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "env_production": {
+                "NODE_ENV": "production"
+            },
+            "log_date_format": "YYYY-MM-DD_HH:mm Z",
+            "merge_logs": true,
+            "watch": false
+        }
+    ]
+}
