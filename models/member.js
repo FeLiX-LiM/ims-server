@@ -6,7 +6,7 @@ var schema = new Schema({
     state: Boolean,
     thumbUp: Number,
     microphone: Boolean,
-    user: {
+    createBy: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },

@@ -8,4 +8,3 @@ var loggger = log4js.getLogger('Test');
 var TlsSig = require('tls-sig-api');
 var crypto = require('crypto');
 /* eslint-enable */
-loggger.debug(crypto.createHash('md5').update('123456').digest('hex').toUpperCase());

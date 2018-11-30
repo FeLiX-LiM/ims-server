@@ -29,7 +29,7 @@ module.exports = {
             mongoose.set('toObject', { virtuals: true });
         }
     },
-    oauth: function() {
+    data: function() {
         User.findOne({ username: adminConfig.username })
             .exec()
             .then(user => {

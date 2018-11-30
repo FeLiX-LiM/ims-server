@@ -80,3 +80,4 @@ typings/
 
 .vscode
 package-lock.json
+file/*/*

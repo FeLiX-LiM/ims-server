@@ -15,6 +15,7 @@ function baseRouter(router, Model) {
             'Invalid argument: Missing parameter `Model`'
         );
     }
+    var createBy = !!Model.schema.obj.createBy;
     // logger.debug(Model.collection.name);
     router.get('/', (req, res, next) => {
         Model.find()
@@ -27,6 +28,9 @@ function baseRouter(router, Model) {
     });
 
     router.post('/pages', (req, res, next) => {
+        if (createBy && res.locals.oauth.token) {
+            req.body.query.createBy = res.locals.oauth.token.user.id;
+        }
         Model.paginate(req.body.query, req.body.options)
             .then(docs => {
                 return res.model.data(docs);
@@ -37,6 +41,9 @@ function baseRouter(router, Model) {
     });
 
     router.post('/find', (req, res, next) => {
+        if (createBy && res.locals.oauth.token) {
+            req.body.createBy = res.locals.oauth.token.user.id;
+        }
         Model.find(req.body)
             .then(docs => {
                 return res.model.data(docs);
@@ -46,8 +53,28 @@ function baseRouter(router, Model) {
             });
     });
 
+    router.post('/one', (req, res, next) => {
+        if (createBy && res.locals.oauth.token) {
+            req.body.createBy = res.locals.oauth.token.user.id;
+        }
+        Model.findOne(req.body)
+            .then(doc => {
+                if (!doc) {
+                    return res.model.data({});
+                } else {
+                    return res.model.data(doc);
+                }
+            })
+            .catch(err => {
+                next(err);
+            });
+    });
+
     router.post('/', (req, res, next) => {
         var model = new Model(req.body);
+        if (createBy && res.locals.oauth.token) {
+            model.createBy = res.locals.oauth.token.user.id;
+        }
         model
             .save()
             .then(doc => {
@@ -70,8 +97,7 @@ function baseRouter(router, Model) {
 
     router.put('/:id', (req, res, next) => {
         var model = new Model(req.body);
-        model
-            .findByIdAndUpdate(req.params.id, model, { new: true })
+        Model.findByIdAndUpdate(req.params.id, model, { new: true })
             .then(doc => {
                 return res.model.data(doc);
             })
@@ -81,7 +107,11 @@ function baseRouter(router, Model) {
     });
 
     router.delete('/:id', (req, res, next) => {
-        Model.findByIdAndDelete(req.params.id)
+        var query = { _id: req.params.id };
+        if (createBy && res.locals.oauth.token) {
+            query.createBy = res.locals.oauth.token.user.id;
+        }
+        Model.findOneAndDelete(query)
             .then(doc => {
                 return res.model.data(doc);
             })
@@ -91,7 +121,11 @@ function baseRouter(router, Model) {
     });
 
     router.post('/delete', (req, res, next) => {
-        Model.deleteMany({ _id: req.body })
+        var query = { _id: req.body };
+        if (createBy && res.locals.oauth.token) {
+            query.createBy = res.locals.oauth.token.user.id;
+        }
+        Model.deleteMany(query)
             .then(doc => {
                 return res.model.data(doc);
             })

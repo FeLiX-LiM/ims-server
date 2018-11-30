@@ -40,5 +40,7 @@ module.exports = {
         expire_after: 180 * 24 * 3600,
         private_key_string: fs.readFileSync('./keys/private_key'),
         public_key_string: fs.readFileSync('./keys/public_key')
-    }
+    },
+    UploadDir: './file',
+    TempDir: './file/temp'
 };

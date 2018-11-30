@@ -14,6 +14,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'live'
     },
+    createBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
     //创建时间
     createAt: {
         type: Date,

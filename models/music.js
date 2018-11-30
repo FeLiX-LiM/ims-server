@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var paginate = require('mongoose-paginate-v2');
 var schema = new Schema({
-    mid: String,
+    id: String,
     name: String,
     singer: String,
     url: String,
@@ -10,6 +10,10 @@ var schema = new Schema({
     lrc: String,
     library: String,
     favorite: Boolean,
+    createBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
     //创建时间
     createAt: {
         type: Date,

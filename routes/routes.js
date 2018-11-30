@@ -6,5 +6,6 @@ module.exports = {
     MUSICS: require('./musics'),
     RECORDS: require('./records'),
     USERS: require('./users'),
-    VIDEOS: require('./videos')
+    VIDEOS: require('./videos'),
+    FILES: require('./uploads')
 };

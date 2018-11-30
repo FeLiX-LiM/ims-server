@@ -10,9 +10,10 @@ var serverLogger = log4js.getLogger('Server');
 var registerLogger = log4js.getLogger('RegisteredRouter');
 var Initializer = require('./libs/initializer');
 var unless = require('express-unless');
-var reponseModel = require('./libs/respone-model');
+var model = require('./libs/respone-model');
 var Routers = require('./routes/routes');
 var Config = require('config');
+// var fileUpload = require('express-fileupload');
 log4js.getLogger('NODE_ENV').info(Config.util.getEnv('NODE_ENV'));
 i18n.configure({
     locales: ['en', 'zh-HK', 'zh-CN'],
@@ -29,11 +30,14 @@ if (Config.Level == 'debug') {
 } else {
     app.use(morgan('dev'));
 }
+// app.use(morgan('dev'));
+// app.use(fileUpload({ createParentPath: true }));
 app.use(express.json());
-app.use(reponseModel);
+app.use(model());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api/file', express.static(path.join(__dirname, Config.UploadDir)));
 app.use(
     cors({
         origin: '*',
@@ -43,7 +47,7 @@ app.use(
 app.use(
     '/api/*',
     unless(Routers.OAUTH2.oauth.authenticate(), {
-        path: [/api\/login.*/, /api\/register.*/]
+        path: [/api\/login.*/, /api\/register.*/, /api\/file.*/]
     })
 );
 for (const key in Routers) {
@@ -75,5 +79,5 @@ app.use(function(err, req, res, next) {
 });
 /* eslint-enable */
 Initializer.mongoose();
-Initializer.oauth();
+Initializer.data();
 module.exports = app;

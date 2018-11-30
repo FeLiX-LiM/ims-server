@@ -12,7 +12,9 @@ router.get('/me', (req, res) => {
 });
 
 router.put('/me', (req, res, next) => {
-    User.findByIdAndUpdate(res.locals.oauth.user.id, req.body, { new: true })
+    User.findByIdAndUpdate(res.locals.oauth.token.user.id, req.body, {
+        new: true
+    })
         .exec()
         .then(user => {
             return res.model.data(user);

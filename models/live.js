@@ -12,7 +12,7 @@ var schema = new Schema({
         ref: 'record'
     },
     roomType: String,
-    user: {
+    createBy: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },

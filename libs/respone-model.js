@@ -49,11 +49,13 @@ ResponseModel.prototype.data = function(data) {
         this.respone.json(model);
     }
 };
-module.exports = function responseModel(req, res, next) {
-    if (res) {
-        res.model = new ResponseModel(res, next);
-    }
-    if (next) {
-        return next();
-    }
+module.exports = function() {
+    return function(req, res, next) {
+        if (res) {
+            res.model = new ResponseModel(res, next);
+        }
+        if (next) {
+            return next();
+        }
+    };
 };
