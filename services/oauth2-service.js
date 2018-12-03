@@ -24,7 +24,7 @@ var attributes = [
     'username'
 ];
 var TlsSig = require('tls-sig-api');
-var sign = new TlsSig.Sig(Config.ILive);
+var sign = new TlsSig.Sig(Config.ILive.TlsSig);
 module.exports = {
     generateAccessToken: function(client, user, scope) {
         logger.debug('generateAccessToken');

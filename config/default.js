@@ -36,10 +36,13 @@ module.exports = {
         password: 'admin'
     },
     ILive: {
-        sdk_appid: 1400116723,
-        expire_after: 180 * 24 * 3600,
-        private_key_string: fs.readFileSync('./keys/private_key'),
-        public_key_string: fs.readFileSync('./keys/public_key')
+        TlsSig: {
+            sdk_appid: 1400116723,
+            expire_after: 180 * 24 * 3600,
+            private_key_string: fs.readFileSync('./keys/private_key'),
+            public_key_string: fs.readFileSync('./keys/public_key')
+        },
+        BizId: 27277
     },
     UploadDir: './file',
     TempDir: './file/temp'

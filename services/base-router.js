@@ -96,8 +96,12 @@ function baseRouter(router, Model) {
     });
 
     router.put('/:id', (req, res, next) => {
-        var model = new Model(req.body);
-        Model.findByIdAndUpdate(req.params.id, model, { new: true })
+        delete req.body._id;
+        var query = { _id: req.params.id };
+        if (createBy && res.locals.oauth.token) {
+            query.createBy = res.locals.oauth.token.user.id;
+        }
+        Model.findOneAndUpdate(query, req.body, { new: true })
             .then(doc => {
                 return res.model.data(doc);
             })

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var paginate = require('mongoose-paginate-v2');
+var autopopulate = require('mongoose-autopopulate');
 var schema = new Schema({
     id: String,
     name: String,
@@ -12,7 +13,8 @@ var schema = new Schema({
     favorite: Boolean,
     createBy: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        autopopulate: true
     },
     //创建时间
     createAt: {
@@ -20,5 +22,6 @@ var schema = new Schema({
         default: Date.now
     }
 });
+schema.plugin(autopopulate);
 schema.plugin(paginate);
 module.exports = mongoose.model('music', schema);

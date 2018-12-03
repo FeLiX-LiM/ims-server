@@ -38,7 +38,7 @@ module.exports = {
                 } else {
                     var admin = new User(adminConfig);
                     admin.role = ROLE.ADMINISTRATOR.key;
-                    admin.password = crypto.md5(admin.password);
+                    admin.password = crypto.md5Hex(admin.password);
                     logger.debug(admin.username, admin.password);
                     return admin.save();
                 }
@@ -52,7 +52,7 @@ module.exports = {
                             if (!doc) {
                                 var clientModel = new Client(client);
                                 clientModel.grants = GrantType.enums;
-                                clientModel.clientSecret = crypto.md5(
+                                clientModel.clientSecret = crypto.md5Hex(
                                     clientModel.clientId
                                 );
                                 clientModel.user = admin.id;
@@ -61,7 +61,7 @@ module.exports = {
                             }
                             logger.debug(
                                 doc.clientId,
-                                crypto.md5(doc.clientId)
+                                crypto.md5Hex(doc.clientId)
                             );
                         });
                 });
