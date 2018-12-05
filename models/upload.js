@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crate = require('mongoose-crate');
 var Storage = require('../libs/storage-provider');
-//安装GraphicsMagick http://www.graphicsmagick.org/download.html
+/**
+ * 安装GraphicsMagick
+ * Windows:http://www.graphicsmagick.org/download.html
+ * CentOS:yum -y install GraphicsMagick GraphicsMagick-devel
+ */
 var GraphicsMagic = require('mongoose-crate-gm');
 var Config = require('config');
 var schema = new Schema(
