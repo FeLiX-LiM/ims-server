@@ -81,3 +81,5 @@ typings/
 .vscode
 package-lock.json
 file/*/*
+database/*
+!database/.gitkeep
