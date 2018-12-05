@@ -14,13 +14,11 @@ var schema = new Schema({
     password: { type: String, bcrypt: true },
     email: {
         type: String,
-        validate: { validator: Validators.email, message: 'error email' },
-        unique: true
+        validate: { validator: Validators.email, message: 'error email' }
     },
     mobile: {
         type: String,
-        validate: { validator: Validators.mobile, message: 'error phone' },
-        unique: true
+        validate: { validator: Validators.mobile, message: 'error phone' }
     },
     //创建时间
     createAt: {
