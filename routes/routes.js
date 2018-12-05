@@ -7,5 +7,6 @@ module.exports = {
     RECORDS: require('./records'),
     USERS: require('./users'),
     VIDEOS: require('./videos'),
-    FILES: require('./uploads')
+    FILES: require('./uploads'),
+    CAPTCHA: require('./captchas')
 };

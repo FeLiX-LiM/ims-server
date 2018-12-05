@@ -3,8 +3,7 @@ var Config = require('config');
 var mongooseConfig = Config.Mongoose;
 var Client = require('../models/auth-client');
 var User = require('../models/user');
-var GrantType = require('../constants/grant-type');
-var ROLE = require('../constants/role');
+var Enums = require('./enum');
 var log4js = require('../services/log-service');
 var logger = log4js.getLogger('Initializer');
 var Bluebird = require('bluebird');
@@ -37,7 +36,7 @@ module.exports = {
                     return user;
                 } else {
                     var admin = new User(adminConfig);
-                    admin.role = ROLE.ADMINISTRATOR.key;
+                    admin.role = Enums.USER_ROLE[0];
                     admin.password = crypto.md5Hex(admin.password);
                     logger.debug(admin.username, admin.password);
                     return admin.save();
@@ -51,7 +50,7 @@ module.exports = {
                         .then(doc => {
                             if (!doc) {
                                 var clientModel = new Client(client);
-                                clientModel.grants = GrantType.enums;
+                                clientModel.grants = Enums.GRANT_TYPE;
                                 clientModel.clientSecret = crypto.md5Hex(
                                     clientModel.clientId
                                 );

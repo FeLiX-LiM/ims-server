@@ -1,7 +1,7 @@
 var moment = require('moment');
 var fs = require('fs');
 module.exports = {
-    Title: 'iMusicShare Server',
+    AppName: 'iMusicShare',
     Port: '8888',
     Salt: {
         rounds: 8
@@ -35,13 +35,27 @@ module.exports = {
         username: 'admin',
         password: 'admin'
     },
-    ILive: {
+    Mail: {
+        service: 'gmail',
+        auth: {
+            user: 'projects.00@jenmate.com',
+            pass: 'Jenmate@2306'
+        }
+    },
+    Captcha: {
+        Expire: {
+            input: 5,
+            unit: 'minutes'
+        }
+    },
+    QCloud: {
+        AppId: 1400116723,
         TlsSig: {
-            sdk_appid: 1400116723,
             expire_after: 180 * 24 * 3600,
             private_key_string: fs.readFileSync('./keys/private_key'),
             public_key_string: fs.readFileSync('./keys/public_key')
         },
+        SMS: { AppKey: '0f242c6d6838056e626e55e318d27610' },
         BizId: 27277
     },
     UploadDir: './file',

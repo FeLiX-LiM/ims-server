@@ -10,7 +10,8 @@ var serverLogger = log4js.getLogger('Server');
 var registerLogger = log4js.getLogger('RegisteredRouter');
 var Initializer = require('./libs/initializer');
 var unless = require('express-unless');
-var model = require('./libs/respone-model');
+var model = require('./libs/middleware/respone-model');
+var locale = require('./libs/middleware/moment-locale');
 var Routers = require('./routes/routes');
 var Config = require('config');
 // var fileUpload = require('express-fileupload');
@@ -32,8 +33,10 @@ if (Config.Level == 'debug') {
 }
 // app.use(morgan('dev'));
 // app.use(fileUpload({ createParentPath: true }));
+app.use(i18n.init);
 app.use(express.json());
 app.use(model());
+app.use(locale());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,7 +50,12 @@ app.use(
 app.use(
     '/api/*',
     unless(Routers.OAUTH2.oauth.authenticate(), {
-        path: [/api\/login.*/, /api\/register.*/, /api\/file.*/]
+        path: [
+            /api\/login.*/,
+            /api\/register.*/,
+            /api\/file.*/,
+            /api\/captcha.*/
+        ]
     })
 );
 for (const key in Routers) {

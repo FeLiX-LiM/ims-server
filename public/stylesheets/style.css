@@ -1,8 +1,18 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding-top: 70px;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
+}
+
+.captcha {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+.captcha-code {
+    background: #3d5afe;
+    color: #fff;
 }

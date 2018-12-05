@@ -28,7 +28,7 @@ router.put('/:id', (req, res, next) => {
         .then(doc => {
             var record = {
                 live: req.params.id,
-                createBy: res.locals.oauth.token.user.id,
+                createBy: res.locals.oauth.token.user.id
             };
             playUrl(record, doc.room, res.locals.oauth.token.user.id);
             Record.findOneAndUpdate({ live: req.params.id }, record, {
@@ -46,6 +46,9 @@ router.delete('/:id', (req, res, next) => {
     query.createBy = res.locals.oauth.token.user.id;
     Record.findOneAndUpdate(query, { finish: true }, { new: true })
         .then(doc => {
+            if (!doc) {
+                doc = {};
+            }
             return res.model.data(doc);
         })
         .catch(err => {

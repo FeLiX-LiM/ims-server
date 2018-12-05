@@ -1,0 +1,9 @@
+extends layout
+block content
+  div(class="container")
+    div(class="jumbotron" style="padding-top: 8px;")
+      h3(style="color:#FF1744") 尊敬的#{sendTo}，您好：
+      h4 以下是#{operating}時所需的驗證碼：
+      div(class="captcha")
+        mark(class="h2 img-rounded captcha-code")=code
+      mark(class="bg-warning text-danger") 如果您未曾試圖#{operating}，請忽略本郵件，並考慮更改您的電子郵件密碼，以確保您的帳戶安全。

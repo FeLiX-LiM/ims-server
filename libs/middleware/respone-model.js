@@ -1,15 +1,20 @@
 var moment = require('moment');
-var EmptyError = require('../libs/error/empty');
+var EmptyError = require('../error/empty');
 /* eslint-disable */
-var log4js = require('../services/log-service');
+var log4js = require('../../services/log-service');
 var logger = log4js.getLogger('ResponseModel');
 var statuses = require('statuses');
+var InvalidRequestError = require('oauth2-server').InvalidRequestError;
 /* eslint-enable */
 function ResponseModel(respone, next) {
     this.respone = respone;
     this.next = next;
 }
 ResponseModel.prototype.error = function(err, code) {
+    logger.debug(err.name);
+    if (err.name === 'ValidationError') {
+        err = new InvalidRequestError(err.message);
+    }
     var error = {
         code: err.code || err.statusCode || code || -999999,
         status: err.name || 'ERROR',

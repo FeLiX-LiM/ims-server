@@ -2,9 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var paginate = require('mongoose-paginate-v2');
 var autopopulate = require('mongoose-autopopulate');
+var LIVE_ROLE = require('../libs/enum').LIVE_ROLE;
 var schema = new Schema({
-    role: String,
-    state: Boolean,
+    role: {
+        type: String,
+        enum: LIVE_ROLE
+    },
+    exit: { type: Boolean, default: false },
     thumbUp: Number,
     microphone: Boolean,
     createBy: {

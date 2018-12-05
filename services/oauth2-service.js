@@ -24,7 +24,9 @@ var attributes = [
     'username'
 ];
 var TlsSig = require('tls-sig-api');
-var sign = new TlsSig.Sig(Config.ILive.TlsSig);
+var sign = new TlsSig.Sig(
+    Object.assign(Config.QCloud.TlsSig, { sdk_appid: Config.QCloud.AppId })
+);
 module.exports = {
     generateAccessToken: function(client, user, scope) {
         logger.debug('generateAccessToken');
@@ -68,11 +70,10 @@ module.exports = {
         return User.findOne({ username: username })
             .exec()
             .then(user => {
-                var valid = user.verifyPasswordSync(password);
-                if (user && !valid) {
-                    return;
+                if (user && user.verifyPasswordSync(password)) {
+                    return user;
                 }
-                return user;
+                return;
             });
     },
     getUserFromClient: function(client) {

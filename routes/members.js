@@ -19,14 +19,14 @@ router.post('/:id', (req, res, next) => {
     )
         .exec()
         .then(() => {
-            return Member.find({ live: req.params.id }).exec();
+            return Member.find({ live: req.params.id });
         })
         .then(docs => {
             return Live.findByIdAndUpdate(req.params.id, {
                 members: docs.map(doc => {
                     return doc.id;
                 })
-            }).exec();
+            });
         })
         .then(live => {
             res.model.data(live.members);

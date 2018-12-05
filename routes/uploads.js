@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Upload = require('../models/upload');
-var InvalidArgumentError = require('oauth2-server').InvalidArgumentError;
+var InvalidRequestError = require('oauth2-server').InvalidRequestError;
 var uuid = require('uuid/v4');
 var Config = require('config');
 var Promise = require('bluebird');
@@ -40,7 +40,7 @@ var storage = multer.diskStorage({
 var multerHandler = multer({ storage: storage });
 router.post('/:category', multerHandler.any(), function(req, res, next) {
     if (!Array.isArray(req.files) || req.files.length == 0) {
-        next(new InvalidArgumentError('No files were uploaded.'));
+        next(new InvalidRequestError('No files were uploaded.'));
     }
     var promises = req.files.map(file => {
         var upload = new Upload({
