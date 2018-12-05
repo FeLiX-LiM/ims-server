@@ -7,5 +7,14 @@ module.exports = {
             useNewUrlParser: true
         },
         debug: true
+    },
+    Mail: {
+        host: 'smtp.qq.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'jenmate@foxmail.com',
+            pass: 'uzkwbkarpujbehdf'
+        }
     }
 };

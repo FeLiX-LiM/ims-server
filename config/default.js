@@ -35,13 +35,6 @@ module.exports = {
         username: 'admin',
         password: 'admin'
     },
-    Mail: {
-        service: 'gmail',
-        auth: {
-            user: 'projects.00@jenmate.com',
-            pass: 'Jenmate@2306'
-        }
-    },
     Captcha: {
         Expire: {
             input: 5,

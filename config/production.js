@@ -9,5 +9,12 @@ module.exports = {
             pass: 'Jenmate@2306'
         },
         debug: false
+    },
+    Mail: {
+        service: 'gmail',
+        auth: {
+            user: 'projects.00@jenmate.com',
+            pass: 'Jenmate@2306'
+        }
     }
 };
