@@ -9,12 +9,10 @@ module.exports = {
         debug: true
     },
     Mail: {
-        host: 'smtp.qq.com',
-        port: 465,
-        secure: true,
+        service: 'gmail',
         auth: {
-            user: 'jenmate@foxmail.com',
-            pass: 'uzkwbkarpujbehdf'
+            user: 'projects.00@jenmate.com',
+            pass: 'Jenmate@2306'
         }
     }
 };
