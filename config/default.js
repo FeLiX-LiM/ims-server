@@ -48,7 +48,11 @@ module.exports = {
             private_key_string: fs.readFileSync('./keys/private_key'),
             public_key_string: fs.readFileSync('./keys/public_key')
         },
-        SMS: { AppKey: '0f242c6d6838056e626e55e318d27610' },
+        SMS: {
+            AppKey: '0f242c6d6838056e626e55e318d27610',
+            '86': { TemplateId: 243348, Sign: '' },
+            '852': { TemplateId: 243345, Sign: 'iMusicShare' }
+        },
         BizId: 27277
     },
     UploadDir: './file',

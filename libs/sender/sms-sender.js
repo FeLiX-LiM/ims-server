@@ -21,13 +21,12 @@ SMSSender.prototype.captcha = function(captcha) {
     var match = XRegExp.exec(captcha.sendTo, PhoneReg);
     captcha.operating = CAPTCHA_OPERATING[captcha.operating];
     var promise = new Promise((resolve, reject) => {
-        this.smsSender.send(
-            0,
+        this.smsSender.sendWithParam(
             match.code,
             match.number,
-            `【${Config.AppName}】驗證碼: ${captcha.code},有效期${
-                captcha.expireHumanize
-            }。您正在进行${captcha.operating}，如非本人操作，請忽略此短信。`,
+            Config.QCloud.SMS[match.code].TemplateId,
+            [captcha.code, captcha.expireHumanize, captcha.operating],
+            Config.QCloud.SMS[match.code].Sign,
             '',
             '',
             (err, res, data) => {
